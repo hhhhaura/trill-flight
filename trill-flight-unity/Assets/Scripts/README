@@ -1,0 +1,1 @@
+Audio-dev % gcc -shared -o libaubio_wrapper.dylib aubio_wrapper.c -I/opt/homebrew/Cellar/aubio/0.4.9_4/include -L/opt/homebrew/Cellar/aubio/0.4.9_4/lib -laubio
