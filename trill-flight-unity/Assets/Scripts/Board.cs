@@ -30,7 +30,7 @@ public class Board : MonoBehaviour
     [Header("Height Configuration")]
     public float groundLevel = 0f;  // 地面高度
     public float heightOffset = 0f; // 高度偏移量
-    public float ceilingLevel = 50f; // 天花板高度
+    public float ceilingLevel = 40f; // 天花板高度
     public int H_range_Midi = 80;   // 最高音對應的 MIDI 碼
     public int L_range_Midi = 53;   // 最低音對應的 MIDI 碼
 
@@ -45,7 +45,7 @@ public class Board : MonoBehaviour
 
     [Header("Flight Configuration")]
     public GameObject airplane; // 飛機物件
-    public float flightSpeed = 3f; // 飛行速度
+    public float flightSpeed = 3; // 飛行速度
 
     private List<Vector3> flightPath; // 保存飛行路徑
     private int currentTargetIndex = 0; // 當前目標點索引
@@ -61,17 +61,19 @@ public class Board : MonoBehaviour
 
     void Start()
     {
+        flightSpeed = Slime.dyn_speed;
         flightPath = new List<Vector3>();
         LoadAndGenerateBoards(jsonFilePath);
 
         if (flightPath.Count > 0)
         {
-            airplane.transform.position = new Vector3(-20, flightPath[0].y, 0);
+            airplane.transform.position = new Vector3(-25, flightPath[0].y, 0);
         }
     }
 
     void Update()
     {
+        flightSpeed = Slime.dyn_speed;
         if (isCrashed)
         {
             // 墜機後停止移動

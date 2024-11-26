@@ -7,7 +7,8 @@ using System.Diagnostics;
 public class Slime : MonoBehaviour
 {
     [Header("Slime Settings")]
-    public float speed = 3f;          // Forward speed of the airplane
+    public static float speed = 10f;          // Forward speed of the airplane
+    public static float dyn_speed = 0f;
     public float pitchSensitivity = 3f; // How sensitive the airplane is to pitch changes
     public int L_range_Midi = 53;
     public int H_range_Midi = 80;
@@ -15,7 +16,7 @@ public class Slime : MonoBehaviour
     private float prePitch = 100f;
     public float gravity = 9.8f;          // Gravitational acceleration (m/s^2)
     public float groundLevel = 0f;        // Ground height
-    public float ceilingLevel = 100f;
+    public float ceilingLevel = 40f;
     private float verticalVelocity = 0f;
     private float lerpSpeed = 50f;
     private float heightOffset = 0f;
@@ -23,9 +24,9 @@ public class Slime : MonoBehaviour
     [Header("Rigidbody Settings")]
     private Rigidbody rb;
 
-    [Header("Propeller Settings")]
-    public Transform propeller;       // Reference to the propeller Transform
-    public float maxSpinSpeed = 10000f; // Maximum spin speed for the propeller
+    //[Header("Propeller Settings")]
+    //public Transform propeller;       // Reference to the propeller Transform
+    //public float maxSpinSpeed = 10000f; // Maximum spin speed for the propeller
     private bool trillState = false;  // Lip trill intensity (0 to 1)
 
     [Header("Audio Processing")]
@@ -81,8 +82,15 @@ public class Slime : MonoBehaviour
         elapsedTime += Time.deltaTime; // 累加時間
         UnityEngine.Debug.Log("targetPitch" + (targetPitch -69));
         // 如果時間達到更新間隔，則更新高度
+        UnityEngine.Debug.Log("trillstate = " + trillState);
+        if (!trillState)
+        {
+            dyn_speed = 0;
+            return;
+        }
         if (targetPitch > 0)
         {
+            dyn_speed = speed;
             pitchHistory.Enqueue(targetPitch);
             if (pitchHistory.Count > updatesPerSecond) // 限制隊列長度
             {
@@ -101,11 +109,11 @@ public class Slime : MonoBehaviour
             float averagePitch = CalculateAveragePitch();
             //float averagePitch = targetPitch;
             int targetMidi = Mathf.RoundToInt(averagePitch);
-
+            prePitch = averagePitch;
             // 計算高度
             float height = groundLevel + heightOffset +
                            (ceilingLevel - groundLevel - heightOffset) *
-                           (targetMidi - L_range_Midi) / (H_range_Midi - L_range_Midi) + 4;
+                           (targetMidi - L_range_Midi) / (H_range_Midi - L_range_Midi);
 
             UnityEngine.Debug.Log("height1 " + height);
             // 確保高度在範圍內
