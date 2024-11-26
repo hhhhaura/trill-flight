@@ -1,0 +1,27 @@
+[
+    {
+        "note": 60,
+        "time": 0.0,
+        "duration": 1
+    },
+    {
+        "note": 64,
+        "time": 1.0,
+        "duration": 1
+    },
+    {
+        "note": 67,
+        "time": 2.0,
+        "duration": 1
+    },
+    {
+        "note": 64,
+        "time": 3.0,
+        "duration": 1
+    },
+    {
+        "note": 60,
+        "time": 4.0,
+        "duration": 2
+    }
+]

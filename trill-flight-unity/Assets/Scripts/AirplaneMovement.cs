@@ -124,6 +124,7 @@ public class AirplaneControlWithPropeller : MonoBehaviour
         float pitch = AubioWrapper.GetPitch(audioData);
         UnityEngine.Debug.Log($"Detected pitch: {pitch}");
         targetPitch = Mathf.Clamp(pitch + heightOffset, 0, 150); // Restrict pitch range
+
     }
 
     void ReceiveTrillData(string message)
