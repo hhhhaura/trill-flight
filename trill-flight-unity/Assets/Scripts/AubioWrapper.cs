@@ -36,11 +36,10 @@ public static class AubioWrapper
     {
         int bufferSize = audioData.Length;
         float pitch = DetectPitch(audioData, bufferSize);
-        Debug.Log($"Pitch: {pitch}");
 
         // If pitch is invalid or out of range, return the last valid pitch
         if (pitch <= -40) {
-            return previousValidPitch > -40 ? previousValidPitch : -40f;
+            return (previousValidPitch > -40 ? previousValidPitch : -40f) + 69;
         }
 
         // Calculate the mean pitch from the history
@@ -48,7 +47,7 @@ public static class AubioWrapper
 
         // Check if the pitch is within the deviation range
         if (pitchHistory.Count > 0 && Math.Abs(pitch - meanPitch) > MaxDeviation) {
-            return previousValidPitch; // Return the previous valid pitch
+            return previousValidPitch + 69; // Return the previous valid pitch
         }
 
         // Update pitch history and store the last valid pitch
@@ -58,7 +57,8 @@ public static class AubioWrapper
         }
 
         previousValidPitch = pitch;
-        return pitch;
+        meanPitch = CalculateMean(pitchHistory);
+        return meanPitch + 69;
     }
 
     private static float CalculateMean(Queue<float> history)

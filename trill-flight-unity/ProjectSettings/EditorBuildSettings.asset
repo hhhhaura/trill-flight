@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/MainScene.unity
+    guid: ff291323546084ea6b67e6a3889e9151
+  - enabled: 1
+    path: Assets/TrillStepPro.unity
+    guid: af8d8108a935d42be90f34991adfb2a4
   m_configObjects: {}

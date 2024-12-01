@@ -1,0 +1,54 @@
+{
+    "timeRatio": 3.0,  
+    "levels": [
+      {
+        "path": [
+          {"x": 0, "z": 0},
+          {"x": 50, "z": 50}
+        ],
+        "level": [
+          {"eventType": 0, "eventLength": 2, "startKey": 0, "endKey": 0},
+          {"eventType": 1, "eventLength": 2, "startKey": 69, "endKey": 69},
+          {"eventType": 2, "eventLength": 2, "startKey": 69, "endKey": 69},
+          {"eventType": 1, "eventLength": 4, "startKey": 69, "endKey": 69},
+          {"eventType": 3, "eventLength": 0, "startKey": 0, "endKey": 0}
+        ],
+        "_level": [
+          {"eventType": 0, "eventLength": 2, "startKey": 0, "endKey": 0},
+          {"eventType": 1, "eventLength": 2, "startKey": 69, "endKey": 69},
+          {"eventType": 2, "eventLength": 8, "startKey": 69, "endKey": 81},
+          {"eventType": 1, "eventLength": 4, "startKey": 81, "endKey": 81},
+          {"eventType": 0, "eventLength": 2, "startKey": 0, "endKey": 0},
+          {"eventType": 2, "eventLength": 8, "startKey": 81, "endKey": 69},
+          {"eventType": 3, "eventLength": 0, "startKey": 0, "endKey": 0}
+        ]
+      },
+      {
+        "path": [
+          {"x": 50, "z": 50},
+          {"x": 100, "z": 100}
+        ],
+        "level": [
+          {"eventType": 1, "eventLength": 10, "startKey": 69},
+          {"eventType": 1, "eventLength": 10, "startKey": 73},
+          {"eventType": 1, "eventLength": 10, "startKey": 76},
+          {"eventType": 1, "eventLength": 10, "startKey": 73},
+          {"eventType": 1, "eventLength": 10, "startKey": 69}
+        ]
+      },
+      {
+        "path": [
+          {"x": 100, "z": 100},
+          {"x": 150, "z": 150}
+        ],
+        "level": [
+          {"eventType": 0, "eventLength": 3, "startKey": 0, "endKey": 0},
+          {"eventType": 1, "eventLength": 2, "startKey": 69, "endKey": 69},
+          {"eventType": 2, "eventLength": 6, "startKey": 69, "endKey": 90},
+          {"eventType": 1, "eventLength": 4, "startKey": 90, "endKey": 90},
+          {"eventType": 0, "eventLength": 0, "startKey": 0, "endKey": 0}
+        ]
+      }
+    ]
+  }
+  

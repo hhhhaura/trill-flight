@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028373, g: 0.22571398, b: 0.30692294, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 30725552}
   - component: {fileID: 30725551}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: SlideSceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,11 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcddd3e69e5748d7802410188b12272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: Levels/slide1.json
-  levelData:
-    path: []
-    tempo: 0
-    level: []
+  parent: {fileID: 30725549}
   hoopPrefab: {fileID: 5365520339879093825, guid: 9f0b9b196c24e4e74bd5a24a4145764c,
     type: 3}
   coinPrefab: {fileID: 2777388872842823792, guid: 5b98906bd9e5945e4b609ae017273d0b,
@@ -184,7 +180,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30725549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bca0b3cf558fc464cb12b0393ddeb361, type: 3}
   m_Name: 
