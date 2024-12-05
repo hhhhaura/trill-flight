@@ -19,7 +19,7 @@ public class LevelGeneratorStep : MonoBehaviour {
     public GameObject checkpointPrefab; // Checkpoint 的預製件
     public float baseLength = 1f;  // 最短音符對應的板子長度
     public float spacing = 3f;   // 板子之間的最小間距
-    public float boxOffset = 2f; // 箱子距離板子最左邊的距離
+    private float boxOffset = 5f; // 箱子距離板子最左邊的距離
 
 
     // for position calculation
@@ -32,6 +32,11 @@ public class LevelGeneratorStep : MonoBehaviour {
         SetPath();
         GenerateLevelObjects();
         Time.timeScale = 1f;
+    }
+
+    private void Update()
+    {
+        
     }
     void LoadLevelData() { // Load and parse JSON file
         data = GlobalSettings.levelData.levels[GlobalSettings.level];
@@ -94,7 +99,7 @@ public class LevelGeneratorStep : MonoBehaviour {
         Quaternion spin = Quaternion.AngleAxis(90f, Vector3.up); 
         angle *= spin;
         Vector3 position = getPosition(curTime);
-        position.y = GlobalSettings.key2height(note);
+        position.y = GlobalSettings.key2height(note) - 2;
         GameObject board = Instantiate(boardPrefab, position + getForward(curTime) * length/3, angle, parent.transform);
 
         Vector3 newScale = new Vector3(
@@ -107,11 +112,15 @@ public class LevelGeneratorStep : MonoBehaviour {
         board.transform.localScale = newScale;
 
         // 生成箱子
-        GameObject box = Instantiate(boxPrefab, position, angle, parent.transform);
+        Vector3 BoxPosition = position;
+        BoxPosition += getForward(curTime) * boxOffset;
+        //GameObject box = Instantiate(boxPrefab, position, angle, parent.transform);
+        GameObject box = Instantiate(boxPrefab, BoxPosition, angle, parent.transform);
         BoxController boxController = box.AddComponent<BoxController>();
         boxController.board = board;        // 關聯箱子的板子
-        boxController.destroyHeight = - 5f; // 設置最低銷毀高度
+        boxController.destroyHeight = board.transform.position.y - 1; // 設置最低銷毀高度
         boxController.boardMargin = 1f;    // 設置板子邊界範圍
+        boxController.box = box;
 
         //GenerateNoteName(board, position, note);
         return board;

@@ -10,7 +10,7 @@ public static class GlobalSettings {
     public static SceneManagement sceneManager = null;
     public static float heightOffset = 12f;
     public static int basePitch = 69;
-    public static float pitchSensitivity = 3;
+    public static float pitchSensitivity = 2;
     public static float timeRatio = 0.5f;
     public static string jsonFilePath = "Levels/game.json";
     public static LevelData levelData = null;

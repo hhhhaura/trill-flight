@@ -51,6 +51,9 @@ public class Airplane : MonoBehaviour {
     private float delayBeats = 10f;
     public float lerpInterval = 0.3f;
     public bool isCrashed = false;
+    //public float distanceThreshold = 1;
+    private int a = 50;
+    private int b = 0;
 
 
     [Header("Slime")]
@@ -96,6 +99,7 @@ public class Airplane : MonoBehaviour {
         if (curMode == 1) currentMode = FlightMode.Auto;
         else currentMode = FlightMode.Manual;
 
+        UnityEngine.Debug.Log($"pitch: {targetPitch}");
             
         // Handle airplane movement
         if (currentMode == FlightMode.Manual) {
@@ -105,12 +109,12 @@ public class Airplane : MonoBehaviour {
                 float verticalInput = Mathf.Lerp(
                     transform.position.y,
                     height,
-                    Time.deltaTime * lerpSpeed // Increase interpolation speed
+                    0.7f//Time.deltaTime * lerpSpeed // Increase interpolation speed
                 );
                 //UnityEngine.Debug.Log($"Target pitch: {targetPitch - GlobalSettings.heightOffset}, position: {transform.position.y}, vertical: {verticalInput}");
-
+                
                 transform.position = GlobalSettings.slideControl.getPosition(currentBeat - baseTime);
-                transform.position = new Vector3(transform.position.x, height, transform.position.z);
+                transform.position = new Vector3(transform.position.x, verticalInput, transform.position.z);
             } else {
                 rb.isKinematic = false;
                 rb.useGravity = true;
@@ -138,24 +142,43 @@ public class Airplane : MonoBehaviour {
             while (curTime >= totalBeat + noteEventList[curEvent].eventLength) {
                 totalBeat += noteEventList[curEvent].eventLength;
                 curEvent += 1;
+                b = 0;
             }
             
             float height = 0;
             UnityEngine.Debug.Log($"The key is {noteEventList[curEvent].startKey}");
-            /*if (curEvent + 1 < noteEventList.Length
-                && noteEventList[curEvent].eventLength - (currentBeat - totalBeat) <= lerpInterval) {
+            if (b < a)
+            {
+                b++;
+                float t = b / a;
+                float preheight = GlobalSettings.key2height(noteEventList[curEvent].startKey);
+                if (curEvent > 0) preheight = GlobalSettings.key2height(noteEventList[curEvent - 1].startKey);
+                height = GlobalSettings.key2height(noteEventList[curEvent].startKey);
+                float smooth = preheight + (height - preheight) * b / a;
+                //float smoothT = Mathf.SmoothStep(0, 1, t) * height;
                 float verticalInput = Mathf.Lerp(
                     transform.position.y,
-                    GlobalSettings.key2height(noteEventList[curEvent + 1].startKey),
-                    Time.deltaTime * lerpSpeed
+                    GlobalSettings.key2height(noteEventList[curEvent].startKey),
+                    0.5f
                 );
+                transform.position = new Vector3(transform.position.x, smooth, transform.position.z);
+                // Set forward looking direction
+                transform.rotation = Quaternion.LookRotation(GlobalSettings.stepControl.getForward(curTime));
 
-            } else */
-            height = GlobalSettings.key2height(noteEventList[curEvent].startKey);
-            transform.position = new Vector3(transform.position.x, height, transform.position.z);
-            // Set forward looking direction
-            transform.rotation = Quaternion.LookRotation(GlobalSettings.stepControl.getForward(curTime));
+            }
+            else
+            {
+                height = GlobalSettings.key2height(noteEventList[curEvent].startKey);
+                float verticalInput = Mathf.Lerp(
+                        transform.position.y,
+                        height,
+                        Time.deltaTime * lerpSpeed // Increase interpolation speed
+                    );
 
+                transform.position = new Vector3(transform.position.x, height, transform.position.z);
+                // Set forward looking direction
+                transform.rotation = Quaternion.LookRotation(GlobalSettings.stepControl.getForward(curTime));
+            }
             /* 
             // 飛機移動到下一個目標點
             Vector3 targetPosition = flightPath[currentTargetIndex];

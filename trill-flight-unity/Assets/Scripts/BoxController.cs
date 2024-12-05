@@ -7,13 +7,17 @@ public class BoxController : MonoBehaviour
     public GameObject board;       // 箱子所屬的板子
     public float destroyHeight = -5f; // 箱子低於該高度後消失
     public float boardMargin = 1f;  // 允許的邊界範圍
+    public GameObject box;
 
     void Update()
     {
+        Transform child = box.transform.Find("default");
+        UnityEngine.Debug.Log("box" + destroyHeight);
         // 檢查箱子的 y 軸高度
-        if (transform.position.y < destroyHeight)
+        if (child.transform.position.y < destroyHeight)
         {
-            Destroy(gameObject);
+            UnityEngine.Debug.Log("boxdestroy");
+            Destroy(box);
             return;
         }
 
